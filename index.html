@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>English Club</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <link rel="icon" href="logo_ecdc.png" type="image/png" />
+    <style>
+      /* ---------------- Reset & Umum ---------------- */
+      html,
+      body {
+        overflow-x: hidden; /* Menghindari scroll horizontal */
+      }
+
+      * {
+        box-sizing: border-box; /* Agar padding dan border tidak menambah lebar elemen */
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif; /* Gunakan font Poppins */
+      }
+
+      body {
+        background-color: rgb(235, 236, 247); /* Warna latar utama */
+        color: black; /* Warna teks utama */
+      }
+
+      /* ---------------- Header / Bagian Atas ---------------- */
+      .border_atas {
+        color: white;
+        text-align: center;
+        padding: 30px;
+        line-height: 1.3;
+        position: relative;
+        background: linear-gradient(
+          to right,
+          #134cea,
+          #9121dc
+        ); /* Gradasi biru */
+      }
+
+      .logo-container-left,
+      .logo-container-right {
+        position: absolute; /* Logo di kiri dan kanan */
+        top: 20px;
+      }
+
+      .logo-container-left {
+        left: 10px;
+      }
+
+      .logo-container-right {
+        right: 10px;
+      }
+
+      .logo-container-left img,
+      .logo-container-right img {
+        width: 60px;
+        height: auto;
+      }
+
+      .header-content {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .title {
+        margin-top: 55px;
+        font-size: 2.5rem;
+        font-weight: bold;
+      }
+
+      .subtitle {
+        font-size: 1.5rem;
+        margin-top: 10px;
+      }
+
+      .kampus {
+        font-size: 1.7rem;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+
+      /* ---------------- Section Penjelasan ---------------- */
+      .penjelasan {
+        max-width: 1100px;
+        margin: auto;
+        padding: 40px 20px;
+      }
+
+      .penjelasan p {
+        max-width: 700px;
+        margin: auto;
+        font-size: 1.15rem;
+        line-height: 1.7;
+        color: #374151; /* Warna teks abu tua */
+        background-color: #e2e6f0; /* Background biru muda */
+        padding: 20px;
+        border-radius: 12px;
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+
+      /* ---------------- Animasi Zoom In ---------------- */
+      .zoom-in-on-scroll {
+        opacity: 0;
+        transform: scale(0.8); /* Dikecilkan dahulu */
+      }
+
+      .zoom-in-on-scroll.show {
+        opacity: 1;
+        transform: scale(1); /* Normal saat muncul */
+      }
+
+      /* ---------------- Judul Section ---------------- */
+      .section-title {
+        text-align: center;
+        font-size: 2.8rem;
+        font-weight: bold;
+        background: linear-gradient(
+          to right,
+          #134cea,
+          #9121dc
+        ); /* Gradasi biru */
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent; /* Teks jadi gradasi */
+        margin-bottom: 20px;
+        position: relative;
+        animation: fadeInUp 1s ease-out;
+      }
+
+      .section-title::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(to right, #134cea, #9121dc);
+        margin: 12px auto 0;
+        border-radius: 2px;
+      }
+
+      /* ---------------- Galeri Foto ---------------- */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* Default 1 kolom */
+        gap: 19px;
+        margin-top: 30px;
+        padding: 0 20px;
+      }
+
+      .gallery img {
+        width: 100%;
+        display: block;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+
+      .gallery-item {
+        opacity: 0;
+        transform: translateY(20px); /* Mulai dari bawah */
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+
+      .gallery-item.show {
+        opacity: 1;
+        transform: translateY(0); /* Kembali ke posisi normal */
+      }
+      .gallery_2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .gallery_2 .gallery-item {
+        max-width: 640px;
+        margin-bottom: 20px;
+      }
+
+      .gallery_2 img {
+        width: 100%;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+
+      /* ---------------- Section Kegiatan ---------------- */
+      .activities-section {
+        max-width: 1100px;
+        margin: auto;
+        padding: 40px 20px;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(250px, 1fr)
+        ); /* Responsive grid */
+        gap: 30px;
+        margin-top: 30px;
+      }
+
+      .card-activity {
+        background-color: #e2e6f0;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .card-activity:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-activity h3 {
+        font-size: 1.4rem;
+        color: #0b186a;
+        margin-bottom: 10px;
+      }
+
+      .card-activity p {
+        font-size: 1rem;
+        color: #247eb6;
+        line-height: 1.6;
+      }
+
+      /* ---------------- Animasi Slide Kartu Kegiatan ---------------- */
+      .card-activity.slide-left,
+      .card-activity.slide-right {
+        opacity: 0;
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+
+      .card-activity.slide-left {
+        transform: translateX(-50px); /* Slide dari kiri */
+      }
+
+      .card-activity.slide-right {
+        transform: translateX(50px); /* Slide dari kanan */
+      }
+
+      .card-activity.slide-left.show,
+      .card-activity.slide-right.show {
+        opacity: 1;
+        transform: translateX(0); /* Normal setelah muncul */
+      }
+
+      /* ---------------- Keyframe Fade In dari Bawah ---------------- */
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ---------------- Animasi Scroll Umum ---------------- */
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.8s ease-out;
+      }
+
+      .animate-on-scroll.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ---------------- Responsif: Laptop ---------------- */
+      @media (min-width: 1024px) {
+        .title {
+          font-size: 3.5rem;
+        }
+
+        .subtitle {
+          font-size: 1.7rem;
+        }
+
+        .logo-container-left img,
+        .logo-container-right img {
+          width: 90px;
+        }
+
+        .logo-container-left {
+          left: 20px;
+        }
+
+        .logo-container-right {
+          right: 20px;
+        }
+
+        .header-content {
+          max-width: 1000px;
+        }
+
+        .gallery {
+          grid-template-columns: repeat(3, 1fr); /* Laptop: 3 kolom */
+        }
+        .card-activity.slide-left,
+        .card-activity.slide-right {
+          transform: translateX(-50px); /* Slide dari kiri */
+        }
+        .cards {
+          display: grid;
+          grid-template-columns: repeat(
+            4,
+            1fr
+          ); /* Tampilkan 4 kartu per baris di laptop */
+        }
+      }
+
+      /* ---------------- Responsif: Tablet dan HP ---------------- */
+      @media (min-width: 768px) and (max-width: 1397px) {
+        .gallery {
+          grid-template-columns: repeat(1, 1fr);
+        }
+
+        .title {
+          font-size: 2rem;
+        }
+
+        .subtitle {
+          font-size: 1.2rem;
+        }
+
+        .kampus {
+          font-size: 1.3rem;
+        }
+      }
+      /* Footer */
+      .ecdc-footer {
+        background-color: #0f0f11;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 40px;
+        font-size: 14px;
+        background: linear-gradient(
+          to right,
+          #134cea,
+          #9121dc
+        ); /* Gradasi biru */
+        max-width: 100%;
+        margin: auto;
+      }
+
+      .ecdc-footer .footer-left {
+        display: flex;
+        align-items: center; /* Supaya logo dan teks sejajar */
+        font-size: 14px;
+        color: #cbd5e1;
+      }
+
+      .footer-left img {
+        height: 30px;
+        left: 10px;
+      }
+      .footer-left span {
+        margin-left: 10px;
+        font-size: 14px;
+        color: #cbd5e1;
+      }
+
+      .daftar-container {
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .daftar-button {
+        display: inline-block;
+        padding: 10px 24px;
+        background: linear-gradient(to right, #3260de 10%, #9121dc 90%);
+        background-size: 200% 100%;
+        background-position: left;
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: background-position 0.4s ease;
+      }
+
+      .daftar-button:hover {
+        background-position: right;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Caption Atas -->
+    <section class="border_atas">
+      <div class="logo-container-left">
+        <img src="logo_ecdc.png" alt="English Club" />
+      </div>
+      <div class="logo-container-right">
+        <img src="logo_upn.png" alt="English Club" />
+      </div>
+      <div class="header-content">
+        <h1 class="title">Welcome to ECDC</h1>
+        <p class="subtitle">English Conversation and Discussion Club<br /></p>
+        <p class="kampus">UPN "Veteran" Yogyakarta</p>
+      </div>
+    </section>
+    <br />
+    <section class="penjelasan text-center py-5">
+      <h2 class="section-title animate-on-scroll">
+        WHAT IS <span style="color: #9121dc">ECDC?</span>
+      </h2>
+      <p class="zoom-in-on-scroll">
+        ECDC (English Conversation and Discussion Club) adalah komunitas
+        mahasiswa kreatif yang mewadahi kamu untuk mengembangkan kemampuan
+        Bahasa Inggris secara menyenangkan. Melalui diskusi, permainan, dan
+        acara seru lainnya, ECDC menciptakan ruang belajar yang inklusif dan
+        menyenangkan bagi semua orang dari berbagai jurusan dan level bahasa.
+      </p>
+    </section>
+    <!-- Gallery -->
+    <section class="container_foto">
+      <h2 class="section-title animate-on-scroll">Gallery</h2>
+      <div class="gallery">
+        <div
+          class="gallery-item"
+          data-bs-toggle="modal"
+          data-bs-target="#imageModal"
+          data-caption="Not just share love with ECDCers, we also continually share meaningful impact for others with devotion"
+        >
+          <img src="ecdc_panti_copy.jpg" alt="ECDC EXPO" />
+        </div>
+        <div
+          class="gallery-item"
+          data-bs-toggle="modal"
+          data-bs-target="#imageModal"
+          data-caption="All about ECDC! Our first gathering will show you what is all about ECDC"
+        >
+          <img src="first_gathering_copy.JPG" alt="ECDC EXPO" />
+        </div>
+        <div
+          class="gallery-item"
+          data-bs-toggle="modal"
+          data-bs-target="#imageModal"
+          data-caption="Inauguration is ECDC moment to enhance our bonding with lots lots fun activities!"
+        >
+          <img src="ecdc_inauguration.jpg" alt="EXDC EXPO" />
+        </div>
+        <div
+          class="gallery-item"
+          data-bs-toggle="modal"
+          data-bs-target="#imageModal"
+          data-caption="NUDC? NUDC!! Show your potential and critical thinking through debate!"
+        >
+          <img src="ecdc_nudc.jpg" alt="EXDC EXPO" />
+        </div>
+        <div
+          class="gallery-item"
+          data-bs-toggle="modal"
+          data-bs-target="#imageModal"
+          data-caption="Let's learn everything about designing as we communicate through visual"
+        >
+          <img src="design_class_ecdc.jpg" alt="EXDC EXPO" />
+        </div>
+        <div
+          class="gallery-item"
+          data-bs-toggle="modal"
+          data-bs-target="#imageModal"
+          data-caption="Not just share love with ECDCers, we also continually share meaningful impact for others with devotion"
+        >
+          <img src="ecdc_bookdonation.jpg" alt="EXDC EXPO" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Activities -->
+    <section class="container activities-section py-5">
+      <h2 class="section-title animate-on-scroll">Our Activities</h2>
+      <div class="cards">
+        <div class="card-activity animate-on-scroll slide-left">
+          <h3>Speaking Circle</h3>
+          <p>
+            Boost your fluency and get instant feedback from peers and mentors.
+          </p>
+        </div>
+        <div class="card-activity animate-on-scroll slide-right">
+          <h3>Social Events</h3>
+          <p>Join movie nights, potlucks, or hangouts with the whole club!</p>
+        </div>
+        <div class="card-activity animate-on-scroll slide-left">
+          <h3>Regular Class</h3>
+          <p>Leaning English grammar and vocabulary through regular class</p>
+        </div>
+        <div class="card-activity animate-on-scroll slide-right">
+          <h3>English Trip</h3>
+          <p>
+            Let's learn English through some places, could be historical,
+            cultural, or adventurous!
+          </p>
+        </div>
+      </div>
+    </section>
+    <div class="gallery_2">
+      <div
+        class="gallery-item"
+        data-bs-toggle="modal"
+        data-bs-target="#imageModal"
+        data-caption="Booth day during campus expo"
+      >
+        <img src="ecdc_expo.jpg" alt="EXDC EXPO" />
+      </div>
+      <div class="daftar-container">
+        <a href="link pendaftaran" class="daftar-button">Daftar Sekarang</a>
+      </div>
+    </div>
+
+    <!-- Caption Bawah -->
+    <footer class="ecdc-footer mt-3">
+      <div class="footer-left">
+        <img src="logo_ecdc.png" alt="Logo ECDC" />
+        <span
+          >ECDC English Conversation Discussion Club UPN "Veteran"
+          Yogyakarta</span
+        >
+      </div>
+    </footer>
+    <!-- Modal for Gallery -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <img
+              id="modalImage"
+              src=""
+              class="img-fluid mb-3"
+              alt="Popup Image"
+            />
+            <p id="modalCaption" class="text-muted"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+            } else {
+              entry.target.classList.remove("show"); // animasi bisa terulang
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+        }
+      );
+
+      // Gabungkan semua elemen yang perlu dianimasikan saat scroll
+      document
+        .querySelectorAll(
+          ".animate-on-scroll, .gallery-item, .zoom-in-on-scroll"
+        )
+        .forEach((el) => {
+          observer.observe(el);
+        });
+
+      // Gallery popup caption functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const galleryItems = document.querySelectorAll(".gallery-item");
+        const modalImage = document.getElementById("modalImage");
+        const modalCaption = document.getElementById("modalCaption");
+
+        galleryItems.forEach((item) => {
+          item.addEventListener("click", function () {
+            const img = item.querySelector("img");
+            const caption = item.getAttribute("data-caption");
+
+            modalImage.src = img.src;
+            modalImage.alt = img.alt;
+            modalCaption.textContent = caption;
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
